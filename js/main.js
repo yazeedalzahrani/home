@@ -1,5 +1,9 @@
+
+//REF//
 // imges Provided by unsplash.com//
 // Background music Provided by https://pixabay.com//
+//css 1,2 buttons Imported  by https://getcssscan.com/css-buttons-examples //
+
 
 
 
@@ -8,12 +12,15 @@ import * as THREE from "https://cdn.skypack.dev/three@0.129.0";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
 let scene, camera, renderer, sphere, controls, skybox;
 let skyboxImage = "space";
-
 const sdBtn = document.querySelector(".sd");
 const hdBtn = document.querySelector(".hd");
-
 sdBtn.onclick = () => changeTextQuality("low");
 hdBtn.onclick = () => changeTextQuality("high");
+
+
+
+
+
 
 
 // Import texture//
