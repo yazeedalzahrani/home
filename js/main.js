@@ -1,9 +1,13 @@
+// imges Provided by unsplash.com//
+// Background music Provided by https://pixabay.com//
+
+
+
+
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
-
 let scene, camera, renderer, sphere, controls, skybox;
 let skyboxImage = "space";
-
 
 const sdBtn = document.querySelector(".sd");
 const hdBtn = document.querySelector(".hd");
@@ -11,9 +15,10 @@ const hdBtn = document.querySelector(".hd");
 sdBtn.onclick = () => changeTextQuality("low");
 hdBtn.onclick = () => changeTextQuality("high");
 
+
+// Import texture//
 function createPathStrings(filename) {
-  const basePath = "../img/skybox/";
-  
+  const basePath = "../img/Texture/";
   const baseFilename = basePath + filename;
   const fileType = ".png";
   const fileType1 = ".mp4";
@@ -23,6 +28,8 @@ function createPathStrings(filename) {
   });
   return pathStrings;
 }
+
+//function for the Environment
 
 function createMaterialArray(filename) {
   const skyboxImagepaths = createPathStrings(filename);
@@ -39,7 +46,7 @@ function setSkyBox() {
   skybox = new THREE.Mesh(skyboxGeo, materialArray);
   scene.add(skybox);
 }
-
+//PerspectiveCamera//
 function init() {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(
@@ -49,21 +56,22 @@ function init() {
     1000
   );
 
+  // adding sphere //
   setSkyBox();
   loadTexture("../img/earth_texture.jpg");
   scene.add(sphere);
-
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
   renderer.domElement.id = "c";
-
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.minDistance = 5;
   controls.maxDistance = 50;
   camera.position.z = 20;
 }
+
+////texture///
 
 function loadTexture(texture) {
   const geometry = new THREE.SphereGeometry(5, 32, 32);
@@ -74,6 +82,7 @@ function loadTexture(texture) {
   sphere = new THREE.Mesh(geometry, material);
 }
 
+// changing between two texture by using buttons//
 function changeTextQuality(quality) {
   switch (quality) {
     case "high":
@@ -91,38 +100,24 @@ function changeTextQuality(quality) {
   }
 }
 
+/// rotation ///
 function animate() {
   requestAnimationFrame(animate);
-  //  videoTexure.needsUpdate = true;
   sphere.rotation.y += 0.002;
   controls.update();
   renderer.render(scene, camera);
 }
+
+///cam//
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
-// videoTexure.minFilter = THREE.LinearFilter;
-// videoTexure.magfilter = THREE.LinearFilter;
-
-// var movieMaterial = new THREE.MeshBasicMaterial({
-
-//   map: videoTexure,
-//   side: THREE.Forntside,
-//   toneMapped:false,
-
-// }); 
-// let movieGeometry = new THREE.PlaneGeometry(800,400);
-// let moviePlanescreen = new THREE.Mesh(movieGeometry,movieMaterial);
-
-// moviePlanescreen.position.set(0,50,0);
-// scene.add(moviePlanescreen);
 
 // create an AudioListener and add it to the camera
 const listener = new THREE.AudioListener();
-
 
 // create a global audio source
 const sound = new THREE.Audio( listener );
